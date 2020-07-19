@@ -64,8 +64,9 @@ provider:
       Resource: { "Fn::Join" : ["", ["arn:aws:sns:${self:provider.region}:", { "Ref" : "AWS::AccountId" }, ":${self:custom.mySnsTopic}" ] ]  }
 
 functions:
-  hello:
-    handler: src/handler.hello
+  publisher:
+    handler: src/publisher.publish
+    name: "publisher-${self:provider.stage}"
     events:
       - http:
           method: get
@@ -75,5 +76,6 @@ functions:
       SNS_ENDPOINT_URL: ${self:custom.snsHostURL.${self:provider.stage}}
   listener:
     handler: src/listener.listen
+    name: "listener-${self:provider.stage}"
     events:
       - sns: ${self:custom.mySnsTopic}

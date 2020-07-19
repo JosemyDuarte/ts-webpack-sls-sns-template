@@ -3,7 +3,7 @@ import 'source-map-support/register';
 
 import AWS from 'aws-sdk';
 
-export const hello: APIGatewayProxyHandler = async (event, _context) => {
+export const publish: APIGatewayProxyHandler = async (event, _context) => {
   const SNS_ENDPOINT_URL = process.env.SNS_ENDPOINT_URL || undefined;
   const SNS = new AWS.SNS({ endpoint: SNS_ENDPOINT_URL });
   console.log(`SNS URL: ${SNS_ENDPOINT_URL}`);
